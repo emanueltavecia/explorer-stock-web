@@ -2,9 +2,13 @@ import { useNavigate } from "react-router-dom";
 
 import { Container, Header, Item } from "./styles";
 import { Button } from '../../components/Button';
+import { useAuth } from "../../hooks/auth";
+import { userRoles } from "../../utils/rules";
 
 export function Product() {
   const navigate = useNavigate();
+
+  const { user } = useAuth()
 
   const products = Array(20)
     .fill({ name: 'Produto' })
@@ -16,7 +20,7 @@ export function Product() {
         <h1>Produtos</h1>
 
         <nav>
-          <Button title="Cadastrar" />
+          {user.role === userRoles.admin && <Button title="Cadastrar" />}
           <Button title="Voltar" onClick={() => navigate('/')} />
         </nav>
       </Header>
